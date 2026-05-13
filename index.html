@@ -1,69 +1,240 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>The Cue — Destek</title>
-<style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif;line-height:1.6;color:#1a1a1a;background:#f7f7f9;padding:24px}
-  .container{max-width:680px;margin:0 auto;background:#fff;padding:40px 32px;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,.04)}
-  h1{font-size:32px;margin-bottom:8px;color:#0F0D13}
-  .subtitle{color:#666;margin-bottom:32px}
-  h2{font-size:20px;margin-top:32px;margin-bottom:12px;color:#0F0D13}
-  p{margin-bottom:12px}
-  a{color:#DC143D;text-decoration:none}
-  a:hover{text-decoration:underline}
-  .faq{background:#f0f0f3;padding:16px 20px;border-radius:10px;margin-bottom:12px}
-  .faq strong{display:block;margin-bottom:6px}
-  .contact{background:#fff5f7;border-left:4px solid #DC143D;padding:16px 20px;border-radius:8px;margin-top:24px}
-  footer{text-align:center;color:#999;margin-top:32px;font-size:14px}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Cue — Destek / Support</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 18px;
+      padding: 40px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    }
+    .lang-toggle {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 24px;
+      gap: 8px;
+    }
+    .lang-btn {
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 1.5px solid #ccc;
+      background: transparent;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: #555;
+      transition: all 0.2s;
+    }
+    .lang-btn.active {
+      background: #1d1d1f;
+      color: #fff;
+      border-color: #1d1d1f;
+    }
+    h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+    .subtitle { color: #6e6e73; font-size: 16px; margin-bottom: 32px; }
+    h2 { font-size: 20px; font-weight: 600; margin-bottom: 16px; margin-top: 32px; }
+    p { line-height: 1.7; color: #3a3a3c; margin-bottom: 12px; }
+    .contact-box {
+      background: #f5f5f7;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 12px;
+    }
+    .contact-box a { color: #0071e3; text-decoration: none; font-weight: 500; }
+    .faq-item {
+      border: 1px solid #e5e5ea;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .faq-question {
+      font-weight: 600;
+      font-size: 15px;
+      padding: 16px 20px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      background: #fff;
+      transition: background 0.2s;
+    }
+    .faq-question:hover { background: #f5f5f7; }
+    .faq-question.open { background: #f5f5f7; }
+    .faq-chevron {
+      font-size: 12px;
+      color: #999;
+      transition: transform 0.25s;
+      flex-shrink: 0;
+      margin-left: 12px;
+    }
+    .faq-question.open .faq-chevron { transform: rotate(180deg); }
+    .faq-answer {
+      color: #3a3a3c;
+      line-height: 1.6;
+      font-size: 15px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      padding: 0 20px;
+    }
+    .faq-answer.open {
+      max-height: 300px;
+      padding: 0 20px 16px;
+    }
+    footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e5ea;
+      color: #999;
+      font-size: 13px;
+      text-align: center;
+    }
+    .hidden { display: none; }
+  </style>
 </head>
 <body>
-<div class="container">
-  <h1>The Cue</h1>
-  <p class="subtitle">Türkçe sosyal kelime ve çizim oyunu için destek sayfası</p>
+  <div class="container">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('tr')">🇹🇷 Türkçe</button>
+      <button class="lang-btn" onclick="setLang('en')">🇺🇸 English</button>
+    </div>
 
-  <h2>İletişim</h2>
-  <div class="contact">
-    Sorularınız, hata bildirimleri veya geri bildirimleriniz için:<br>
-    <strong><a href="mailto:destek@crimsonglobe.com">destek@crimsonglobe.com</a></strong>
+    <!-- TÜRKÇE -->
+    <div id="tr">
+      <h1>The Cue</h1>
+      <p class="subtitle">Sosyal kelime oyunu için destek sayfası</p>
+
+      <h2>İletişim</h2>
+      <div class="contact-box">
+        Sorularınız, hata bildirimleri veya geri bildirimleriniz için:<br /><br />
+        <a href="mailto:destek@crimsonglobe.com">destek@crimsonglobe.com</a>
+      </div>
+
+      <h2>Sıkça Sorulan Sorular</h2>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">Oyun nasıl oynanır? <span class="faq-chevron">▼</span></div>
+        <div class="faq-answer">3-16 kişiyle bir oda oluşturun, kodu paylaşın ve arkadaşlarınız kendi telefonlarından katılsın. Her tur bir kelime gösterilir; aranızda bir casus vardır ve sadece ipucu görür. Sırayla 1 kelimelik ipuçları yazın, sonra oylama yaparak casusu yakalayın.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">Oda kurmak için hesap açmam gerekiyor mu? <span class="faq-chevron">▼</span></div>
+        <div class="faq-answer">Evet, oyuna katılabilmek için Apple veya Google hesabınızla giriş yapmanız gerekir. Bu, oda yönetimi ve oyun durumunun cihazlar arası senkronize edilmesi için gereklidir.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">Bağlantım koptu, oyuna geri dönebilir miyim? <span class="faq-chevron">▼</span></div>
+        <div class="faq-answer">Evet. Aynı cihazdan uygulamayı yeniden açtığınızda otomatik olarak odaya geri bağlanırsınız.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">Uygulama ücretli mi? <span class="faq-chevron">▼</span></div>
+        <div class="faq-answer">The Cue tamamen ücretsizdir. Reklamlarla desteklenir.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">Hangi cihazlarda çalışır? <span class="faq-chevron">▼</span></div>
+        <div class="faq-answer">iOS 15.1 ve sonrası iPhone ve iPad cihazlarda çalışır.</div>
+      </div>
+
+      <h2>Gizlilik</h2>
+      <p>The Cue, oyun deneyimini sağlamak için minimum veri toplar. Detaylar için <a href="mailto:destek@crimsonglobe.com">bize ulaşın</a>.</p>
+
+      <footer>© 2026 Crimson Globe. Tüm hakları saklıdır.</footer>
+    </div>
+
+    <!-- ENGLISH -->
+    <div id="en" class="hidden">
+      <h1>The Cue</h1>
+      <p class="subtitle">Support page for the social word game</p>
+
+      <h2>Contact</h2>
+      <div class="contact-box">
+        For questions, bug reports, or feedback:<br /><br />
+        <a href="mailto:destek@crimsonglobe.com">destek@crimsonglobe.com</a>
+      </div>
+
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">How do I play the game? <span class="faq-chevron">▼</span></div>
+        <div class="faq-answer">Create a room with 3-16 players, share the code, and let your friends join from their own phones. Each round, everyone gets the same word — except the spy, who only sees a vague clue. Take turns writing 1-word clues, then vote to find the spy.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">Do I need an account to create a room? <span class="faq-chevron">▼</span></div>
+        <div class="faq-answer">Yes, you need to sign in with your Apple or Google account to play. This is required for room management and syncing game state across devices.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">I lost connection — can I rejoin the game? <span class="faq-chevron">▼</span></div>
+        <div class="faq-answer">Yes. Simply reopen the app on the same device and you will be automatically reconnected to the room.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">Is the app free? <span class="faq-chevron">▼</span></div>
+        <div class="faq-answer">The Cue is completely free and supported by ads.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">Which devices are supported? <span class="faq-chevron">▼</span></div>
+        <div class="faq-answer">The app works on iPhone and iPad running iOS 15.1 or later.</div>
+      </div>
+
+      <h2>Privacy</h2>
+      <p>The Cue collects minimal data to provide the game experience. For details, <a href="mailto:destek@crimsonglobe.com">contact us</a>.</p>
+
+      <footer>© 2026 Crimson Globe. All rights reserved.</footer>
+    </div>
   </div>
 
-  <h2>Sıkça Sorulan Sorular</h2>
+  <script>
+    // Auto-detect language from URL param e.g. ?lang=en
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const lang = params.get('lang');
+      if (lang === 'en') {
+        document.getElementById('tr').classList.add('hidden');
+        document.getElementById('en').classList.remove('hidden');
+        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelector('.lang-btn[onclick="setLang(\'en\')"]').classList.add('active');
+        document.documentElement.lang = 'en';
+      }
+    });
 
-  <div class="faq">
-    <strong>Oyun nasıl oynanır?</strong>
-    3-16 kişiyle bir oda oluşturun, kodu paylaşın ve arkadaşlarınız kendi telefonlarından katılsın. Her tur bir kelime gösterilir; aranızda bir casus vardır ve sadece ipucu görür. Sırayla 1 kelimelik ipuçları yazın veya çizin, sonra oylama yaparak casusu yakalayın.
-  </div>
+    function toggleFaq(el) {
+      const answer = el.nextElementSibling;
+      const isOpen = answer.classList.contains('open');
+      // Close all in same language section
+      const section = el.closest('[id]');
+      section.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+      section.querySelectorAll('.faq-question').forEach(q => q.classList.remove('open'));
+      if (!isOpen) {
+        answer.classList.add('open');
+        el.classList.add('open');
+      }
+    }
 
-  <div class="faq">
-  <strong>Oda kurmak için hesap açmam gerekiyor mu?</strong>
-  Evet, oyuna katılabilmek için Apple veya Google hesabınızla giriş yapmanız gerekir. Bu, oda yönetimi ve oyun durumunun cihazlar arası senkronize edilmesi için gereklidir.
-</div>
-
-  <div class="faq">
-    <strong>Bağlantım koptu, oyuna geri dönebilir miyim?</strong>
-    Evet. Aynı cihazdan uygulamayı yeniden açtığınızda otomatik olarak odaya geri bağlanırsınız.
-  </div>
-
-  <div class="faq">
-    <strong>Uygulama ücretli mi?</strong>
-    The Cue tamamen ücretsizdir. Reklamlarla desteklenir.
-  </div>
-
-  <div class="faq">
-    <strong>Hangi cihazlarda çalışır?</strong>
-    iOS 15.1 ve sonrası iPhone ve iPad cihazlarda çalışır.
-  </div>
-
-  <h2>Gizlilik</h2>
-  <p>The Cue, oyun deneyimini sağlamak için minimum veri toplar. Detaylar için <a href="mailto:necati.bektas@crimsonglobe.com">bize ulaşın</a>.</p>
-
-  <footer>
-    © 2026 Crimson Globe. Tüm hakları saklıdır.
-  </footer>
-</div>
+    function setLang(lang) {
+      document.getElementById('tr').classList.toggle('hidden', lang !== 'tr');
+      document.getElementById('en').classList.toggle('hidden', lang !== 'en');
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      document.documentElement.lang = lang;
+    }
+  </script>
 </body>
 </html>
